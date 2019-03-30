@@ -1,0 +1,23 @@
+<html>
+  <script>
+      document.addEventListener('deviceready', onDeviceReady, false);
+      // Warning: those locales are duplicated from server.js
+      var locales = ['ar', 'cs', 'da', 'de', 'en', 'es', 'fr', 'it', 'ja', 'nl', 'pl', 'pt-br', 'ru', 'sv', 'sk', 'zh-cn', 'zh-hk', 'zh-tw'];
+      function onDeviceReady() {
+        navigator.globalization.getLocaleName(
+          function(obj) {
+            var locale = obj.value.substr(0, 2);
+            if (locales.indexOf(locale) != -1)
+              window.location.href = 'electricitymap/index_' + locale + '.html';
+            else
+              window.location.href = 'electricitymap/index_en.html';
+          },
+          function(err) {
+            console.error(err);
+            window.location.href = 'electricitymap/index_en.html';
+          }
+        );
+      }
+  </script>
+  <script type="text/javascript" src="cordova.js"></script>
+</html>

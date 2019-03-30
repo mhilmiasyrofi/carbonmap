@@ -1,0 +1,17 @@
+.git
+*.tar.gz
+*.json
+*secrets*
+*.env
+*.mp4
+*.mkv
+
+mobileapp
+
+datascience
+
+web/node_modules
+web/public/dist
+web/zonegeometries.json
+
+screenshots*

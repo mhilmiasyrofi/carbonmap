@@ -1,0 +1,34 @@
+version: '3.5'
+services:
+  mockserver:
+    build: mockserver
+    ports: ['9000:8000']
+    volumes:
+      - './mockserver/public:/home/public'
+      - './mockserver/server.py:/home/server.py'
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+      cache_from:
+        - eu.gcr.io/tmrow-152415/electricitymap_web:production
+        - eu.gcr.io/tmrow-152415/electricitymap_web:staging
+    command: npm run server-dev
+    depends_on: ['mockserver']
+    environment:
+      - NODE_ENV=development
+    ports: ['8000:8000']
+    volumes:
+      - './config:/home/config'
+      - './web/generate-geometries.js:/home/web/generate-geometries.js'
+      - './web/locales:/home/web/locales'
+      - './web/package.json:/home/web/package.json'
+      - './web/public:/home/web/public'
+      - './web/server.js:/home/web/server.js'
+      - './web/src:/home/web/src'
+      - './web/third_party_maps:/home/web/third_party_maps'
+      - './web/topogen.sh:/home/web/topogen.sh'
+      - './web/views:/home/web/views'
+      - './web/webpack.config.js:/home/web/webpack.config.js'
+      
+
